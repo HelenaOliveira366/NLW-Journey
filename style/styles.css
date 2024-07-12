@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+
+    --black-color: #09090B;
+    --black-color-secondary: #181818;
+    --white-color: #FAFAFA;
+    --green-color: #16FF00;
+    --red-color: #D04848;
+}
+
+::selection{
+    background-color: var(--green-color);
+    color: var(--black-color);
+}
+
+body{
+    background-color: var(--black-color);
+    color: var(--white-color);
+}
+
+input, select{
+    /*Tira todas as propriedades existentes
+    all: unset;*/
+}
+
+input, select, button{
+    font-family: 'Inter', sans-serif;
+    color: var(--white-color);
+    width: 100%;
+    border: none;
+    background-color: var(--black-color);
+}
+
+/*Remover borda branca quando o elemento ganha foco*/
+input:focus,
+select:focus{
+    outline: none;
+}
+
+.card-bg{
+    background-color: var(--black-color-secondary);
+    padding: 15px 10px;
+    border-radius: 10px;
+}
+
+#app{
+    padding: 40px 20px;
+    margin: 0 auto;
+    max-width: 320px;
+}
+
+#localizacao{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    margin-bottom: 30px;
+}
+
+.fields{
+    display: grid;
+    gap: 10px
+}
+
+.field-wrapper{
+    padding: 15px;
+    background-color: var(--black-color);
+    border: 1px solid #27272A;
+    border-radius: 10px;
+
+    /*Ícones*/
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/*Colocar foco nos campos*/
+.field-wrapper:focus-within{
+    outline: 1px solid var(--green-color);
+}
+
+button{
+    background-color: var(--green-color);
+    color: var(--black-color-secondary);
+    font-weight: 700;
+    font-size: 1rem;
+
+    margin-top: 20px;
+    padding: 15px 0;
+    border-radius: 10px;
+}
+
+button:hover{
+    scale: 1.05;
+    transition: .4s;
+}
+
+main{
+    margin-top: 32px;
+}
+
+h1{
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+time{
+    color: #5e5e66;
+    font-size: 0.8rem;
+    line-height: 20px;
+    text-align: right;
+}
+
+time.full{
+    display: none;
+}
+
+section{
+    display: grid;
+    gap: 10px;
+}
+
+/*Checar se tem um status checked - adiciona o icone de active quando estiver checked*/
+section .card-bg:has(:checked) .active,
+section .card-bg .inactive{
+    display: block;
+}
+
+/*Checar se tem um status checked - remove o icone de inactive quando estiver checked*/
+section .card-bg:has(:checked) .inactive,
+section .card-bg .active{
+    display: none;
+}
+
+svg.active{
+    color: var(--green-color);
+}
+
+svg.inactive{
+    color: var(--red-color);
+}
+
+section input[type="checkbox"]{
+    /*Preenche a caixinha*/
+    inset: 0;
+    position: absolute;
+}
+
+section .card-bg{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: aparecer 320ms;
+}
+
+section .card-bg:hover{
+    scale: 1.05;
+    transition: .4s;
+    font-weight: 700;
+}
+
+section .card-bg > div{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@media (width > 1024px){
+    #app{
+        display: flex;
+        max-width: 960px;
+        gap: 32px
+    }
+
+    main{
+        margin-top: 0;
+        /*Vai encaixar o item na largura disponivel - seu pai precisa ser display: flex;*/
+        flex: 1;
+    }
+
+    h1{
+        text-align: left;
+    }
+
+    time.full{
+        display: block;
+    }
+
+    time.short{
+        display: none;
+    }
+}
+
+@keyframes aparecer {
+    from{
+        opacity: 0;
+    }
+}
