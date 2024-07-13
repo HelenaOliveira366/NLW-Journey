@@ -1,5 +1,3 @@
-
-
 //Usando a biblioteca DayJS
 const formatador = (data) => {
     return{
@@ -25,44 +23,50 @@ const atividade = {
 */
 
 //Array
-
 let atividades = [
     {
         nome: "Estudar",
         data: new Date("2024-07-09 11:00"),
-        finalizada: false
-    },
-    {
-        nome: "Academia em grupo",
-        data: new Date("2024-07-09 18:00"),
         finalizada: true
     },
     {
-        nome: "Gaming session",
-        data: new Date("2024-07-19 18:00"),
+        nome: "Academia",
+        data: new Date("2024-07-09 18:00"),
+        finalizada: false
+    },
+    {
+        nome: "Desenho",
+        data: new Date("2024-07-19 11:00"),
+        finalizada: false
+    },
+    {
+        nome: "Pintura",
+        data: new Date("2024-07-19 13:00"),
+        finalizada: false
+    },
+    {
+        nome: "Alongar",
+        data: new Date("2024-07-19 17:00"),
         finalizada: false
     }
 ];
 
-/*
-let atividades = [];
-*/
+//let atividades = [];
 
-//Criando estrutura atividades - Arrow function - se futuramente der erro, trocar pelo objeto (e descomentá-lo) 'atividade' 
-const criarItemTarefa = (atividades) => {
+/*Criando estrutura atividades - Arrow function - '(atividade)' deve ser o mesmo valor do atributo name do elemento input HTML que recebe o nome - <input type="text" name="atividade" required placeholder="Qual a atividade?">*/
+const criarItemTarefa = (atividade) => {
     //Se a tarefa for marcada como finalizada, é adicionado o atributo 'checked', ao final a tag é fechada
-    let input = '<input type="checkbox" id="" onchange="concluirTarefa(event)" value="${atividades.data}" ';
-    //- se futuramente der erro, trocar pelo objeto (e descomentá-lo) 'atividade' 
-    if(atividades.finalizada){
+    let input = '<input type="checkbox" onchange="concluirTarefa(event)" value="${atividade.data}" ';
+
+    if(atividade.finalizada){
         input = input + 'checked';
     }
-    input = input + '>'
+    input = input + '>';
 
     //DayJS
-    const formatar = formatador(atividades.data);
+    const formatar = formatador(atividade.data);
 
     //Estrutura HTML com  valores
-    // - se futuramente der erro, trocar pelo objeto (e descomentá-lo) 'atividade' 
     return `
         <div class="card-bg">
             ${input}
@@ -74,7 +78,7 @@ const criarItemTarefa = (atividades) => {
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle inactive" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                 </svg>
-                <span>${atividades.nome}</span>
+                <span>${atividade.nome}</span>
             </div>
             <time class="short">
                 ${formatar.dia.semana.curto},
@@ -129,9 +133,10 @@ const salvarAtividade = (event) => {
     }
 
     //verifica se os horarios da tarefa a ser criada é o mesmo de outra tarefa já criada
-    const atividadeExiste = atividades.find((atividades) => {
-        return atividades.data == novaAtividade.data;
+    const atividadeExiste = atividades.find((atividade) => {
+        return atividade.data == novaAtividade.data;
     })
+
     //Se horário for igual, alertar
     if(atividadeExiste){
         return alert('Dia/Hora não disponível');
@@ -150,6 +155,10 @@ const criarDiasSelecao = () => {
         "2024-07-11",
         "2024-07-12",
         "2024-07-13",
+        "2024-07-14",
+        "2024-07-15",
+        "2024-07-16",
+        "2024-07-17",
     ]
 
     let diasSelecao = '';
@@ -174,8 +183,9 @@ const criarHorasSelecao = () => {
     let horasDisponiveis = '';
 
     for(let i = 6; i < 23; i++){
-        horasDisponiveis += `<option value="${i}:00">${i}:00</option>`;
-        horasDisponiveis += `<option value="${i}:30">${i}:30</option>`;
+        const hora = String(i).padStart(2, '0');
+        horasDisponiveis += `<option value="${hora}:00">${hora}:00</option>`;
+        horasDisponiveis += `<option value="${hora}:30">${hora}:30</option>`;
     }
 
     document.querySelector('select[name="hora"]').innerHTML = horasDisponiveis;

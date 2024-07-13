@@ -25,17 +25,17 @@ body{
     color: var(--white-color);
 }
 
-input, select{
-    /*Tira todas as propriedades existentes
-    all: unset;*/
-}
-
-input, select, button{
+input, select, button, option{
     font-family: 'Inter', sans-serif;
     color: var(--white-color);
     width: 100%;
     border: none;
     background-color: var(--black-color);
+}
+/*Importante: Não trocar a ordem deste estilo, caso contrário o input vai sumir*/
+input, select{
+    /*Tira todas as propriedades existentes, incluindo o check*/
+    all: unset;
 }
 
 /*Remover borda branca quando o elemento ganha foco*/
@@ -90,7 +90,7 @@ button{
     background-color: var(--green-color);
     color: var(--black-color-secondary);
     font-weight: 700;
-    font-size: 1rem;
+    font-size: .9rem;
 
     margin-top: 20px;
     padding: 15px 0;
